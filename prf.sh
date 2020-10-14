@@ -1,0 +1,3 @@
+img=django
+cnt=django
+
