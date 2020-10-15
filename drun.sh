@@ -7,4 +7,4 @@ docker run --name=$cnt  \
 -p 8000:8000 \
 -p 8022:22 \
 $img \
-/bin/bash
+/bin/bash 

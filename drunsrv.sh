@@ -7,3 +7,4 @@ docker run --name=srv  \
 -p 8022:22 \
 $img \
 /bin/bash pdjrun.sh
+
