@@ -1,7 +1,9 @@
 #!/bin/bash
 set -x
 source prf.sh
-docker rm test
-docker run --name=test  \
--p 52022:22 \
-python  
+docker rm  srv
+docker run --name=srv  \
+-p 8000:8000 \
+-p 8022:22 \
+$img \
+/bin/bash pdjrun.sh
