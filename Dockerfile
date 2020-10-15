@@ -2,7 +2,8 @@ FROM python:3
 
 #install ssh and try to enable
 RUN apt-get update -y &&\
-    apt-get install ssh -y &&\
+    # apt-get install ssh -y &&\
+    apt-get install openssh-server -y &&\
     echo  "    PermitRootLogin yes">>/etc/ssh/ssh_config &&\
     cat /etc/ssh/ssh_config
 
