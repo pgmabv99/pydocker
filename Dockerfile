@@ -22,4 +22,5 @@ RUN python az_main.py
 COPY pdjrun.sh  /home/pgmabv/pydjango/
 RUN sudo chmod +x /home/pgmabv/pydjango/pdjrun.sh
 WORKDIR /home/pgmabv/pydjango
-
+# EXPOSE 8000
+# EXPOSE 22

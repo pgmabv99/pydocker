@@ -1,3 +1,3 @@
-img=django
-cnt=django
+img=pgmabv99/pydjango
+cnt=pydjango
 

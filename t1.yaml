@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pydjango
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pydjango
+  template:
+    metadata:
+      labels:
+        app: pydjango
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: pydjango
+        image: docker.io/pgmabv99/pydjango:latest
+        command: ['/bin/sh', '-c', 'pdjrun.sh']
+        ports:
+          - containerPort: 8000
+        env:
+        - name: ALLOW_EMPTY_PASSWORD
+          value: "yes"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8000
+          name: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-resource-group: MC_pgmabv99_pgmabv99_westus
+  name: pydjango
+spec:
+  loadBalancerIP:  20.189.183.178
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: pydjango
+
+   
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: azure-vote-front
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: azure-vote-front
+#   template:
+#     metadata:
+#       labels:
+#         app: azure-vote-front
+#     spec:
+#       nodeSelector:
+#         "beta.kubernetes.io/os": linux
+#       containers:
+#       - name: azure-vote-front
+#         image: mcr.microsoft.com/azuredocs/azure-vote-front:v1
+#         resources:
+#           requests:
+#             cpu: 100m
+#             memory: 128Mi
+#           limits:
+#             cpu: 250m
+#             memory: 256Mi
+#         ports:
+#         - containerPort: 80
+#         env:
+#         - name: REDIS
+#           value: "pydjango"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: azure-vote-front
+# spec:
+#   type: LoadBalancer
+#   ports:
+#   - port: 80
+#   selector:
+#     app: azure-vote-front
