@@ -1,12 +1,11 @@
 #!/bin/bash
 set -x
+
+# azure AKS cluster operations 
+
 # az login
 # az aks install-cli
 # kubectl get nodes
-
-# az aks stop --name pgmabv99 --resource-group pgmabv99
-# =========show service principal
-#az aks show --name pgmabv99 --resource-group pgmabv99 --query servicePrincipalProfile.clientId -o tsv
 
 # 1. create cluster
 # az aks create   --name pgmabv99 --resource-group pgmabv99 \
@@ -23,4 +22,11 @@ set -x
 
 # 4. create external ip 
 #az network etc
+
+
+
+#utils 
+# az aks stop --name pgmabv99 --resource-group pgmabv99
+# =========show service principal
+#az aks show --name pgmabv99 --resource-group pgmabv99 --query servicePrincipalProfile.clientId -o tsv
 
