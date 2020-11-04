@@ -2,15 +2,17 @@
 set -x
 
 # azure AKS cluster operations 
-
+# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux
 # az login
 # az aks install-cli
-# kubectl get nodes
+# kubectl get nodes ]??
 
 # 1. create cluster
 # az aks create   --name pgmabv99 --resource-group pgmabv99 \
 --ssh-key-value /home/azureuser/.ssh/authorized_keys \
 --node-count 1
+
+az aks create   --name pgmabv99 --resource-group pgmabv99  --ssh-key-value /home/azureuser/.ssh/authorized_keys  --node-count 1
 # 2. copy credential to local file
 # az aks get-credentials --resource-group pgmabv99 --name pgmabv99
 
