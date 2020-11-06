@@ -1,0 +1,97 @@
+[
+  {
+    "ddosSettings": null,
+    "dnsSettings": null,
+    "etag": "W/\"6c4b528d-b865-41d9-9079-975fc6a51637\"",
+    "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/MC_pgmabv88_pgmabv88_eastus2/providers/Microsoft.Network/publicIPAddresses/84333bc2-c877-48d5-a3cb-235678ca4204",
+    "idleTimeoutInMinutes": 30,
+    "ipAddress": "52.177.247.239",
+    "ipConfiguration": {
+      "etag": null,
+      "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/MC_pgmabv88_pgmabv88_eastus2/providers/Microsoft.Network/loadBalancers/kubernetes/frontendIPConfigurations/84333bc2-c877-48d5-a3cb-235678ca4204",
+      "name": null,
+      "privateIpAddress": null,
+      "privateIpAllocationMethod": null,
+      "provisioningState": null,
+      "publicIpAddress": null,
+      "resourceGroup": "MC_pgmabv88_pgmabv88_eastus2",
+      "subnet": null
+    },
+    "ipTags": [],
+    "location": "eastus2",
+    "name": "84333bc2-c877-48d5-a3cb-235678ca4204",
+    "provisioningState": "Succeeded",
+    "publicIpAddressVersion": "IPv4",
+    "publicIpAllocationMethod": "Static",
+    "publicIpPrefix": null,
+    "resourceGroup": "MC_pgmabv88_pgmabv88_eastus2",
+    "resourceGuid": "fa094a53-982f-45a1-aa9c-bbf8899060b0",
+    "sku": {
+      "name": "Standard"
+    },
+    "tags": {
+      "owner": "kubernetes",
+      "type": "aks-slb-managed-outbound-ip"
+    },
+    "type": "Microsoft.Network/publicIPAddresses",
+    "zones": null
+  },
+  {
+    "ddosSettings": null,
+    "dnsSettings": null,
+    "etag": "W/\"2eedf94e-e82a-46dd-9ef4-e7eecdcacf2a\"",
+    "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Network/publicIPAddresses/aks-ip",
+    "idleTimeoutInMinutes": 4,
+    "ipAddress": "52.138.116.221",
+    "ipConfiguration": null,
+    "ipTags": [],
+    "location": "eastus2",
+    "name": "aks-ip",
+    "provisioningState": "Succeeded",
+    "publicIpAddressVersion": "IPv4",
+    "publicIpAllocationMethod": "Static",
+    "publicIpPrefix": null,
+    "resourceGroup": "pgmabv88",
+    "resourceGuid": "4c32f4e9-7b6f-4a16-9704-f5727b513662",
+    "sku": {
+      "name": "Standard"
+    },
+    "tags": null,
+    "type": "Microsoft.Network/publicIPAddresses",
+    "zones": null
+  },
+  {
+    "ddosSettings": null,
+    "dnsSettings": null,
+    "etag": "W/\"2e444ad6-5c6c-440c-a50e-ddc2783cfa39\"",
+    "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Network/publicIPAddresses/dev2-ip",
+    "idleTimeoutInMinutes": 4,
+    "ipAddress": "52.177.3.115",
+    "ipConfiguration": {
+      "etag": null,
+      "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Network/networkInterfaces/dev2670/ipConfigurations/ipconfig1",
+      "name": null,
+      "privateIpAddress": null,
+      "privateIpAllocationMethod": null,
+      "provisioningState": null,
+      "publicIpAddress": null,
+      "resourceGroup": "pgmabv88",
+      "subnet": null
+    },
+    "ipTags": [],
+    "location": "eastus2",
+    "name": "dev2-ip",
+    "provisioningState": "Succeeded",
+    "publicIpAddressVersion": "IPv4",
+    "publicIpAllocationMethod": "Dynamic",
+    "publicIpPrefix": null,
+    "resourceGroup": "pgmabv88",
+    "resourceGuid": "7d310813-6e04-4bd0-bf00-dfcec855b602",
+    "sku": {
+      "name": "Basic"
+    },
+    "tags": null,
+    "type": "Microsoft.Network/publicIPAddresses",
+    "zones": null
+  }
+]
