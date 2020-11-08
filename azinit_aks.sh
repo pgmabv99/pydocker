@@ -33,7 +33,8 @@ set -x
     --scope /subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88
 
 #utils 
-# az aks stop --name pgmabv99 --resource-group pgmabv99
+# az aks stop --name pgmabv88 --resource-group pgmabv88
+# az aks delete --name pgmabv88 --resource-group pgmabv88
 # =========show service principal
 #az aks show --name pgmabv88 --resource-group pgmabv88 --query servicePrincipalProfile.clientId -o tsv
 
