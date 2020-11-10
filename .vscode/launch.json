@@ -1,10 +1,10 @@
 {
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Python: azinit",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder:pydocker}/azinit.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder:pyutil}"
