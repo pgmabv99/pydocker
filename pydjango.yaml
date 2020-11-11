@@ -41,7 +41,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: pgmabv88
   name: pydjango
 spec:
-  loadBalancerIP:  52.138.124.155
+  loadBalancerIP:  52.179.216.231
   type: LoadBalancer
   ports:
   - port: 8000
