@@ -120,6 +120,11 @@ class azinit:
         utz.jprint(respj)
         ip=respj["publicIp"]["ipAddress"]
         utz.print(ip)
+
+        f = open("pydjango_ip.txt", "w")
+        f.write(ip)
+        f.close()
+
         #https://docs.microsoft.com/en-us/azure/aks/static-ip
 
     def docker_build(self):
@@ -156,24 +161,83 @@ class azinit:
     def k8s_build(self):
         utz.enter()
         uos1=uos()
+        replicas=6
 
+
+        # uos1.uoscall_nowait("kubectl delete pods --all")
         uos1.uoscall_nowait("kubectl delete services --all")
         uos1.uoscall_nowait("kubectl delete deployments  --all")
-        uos1.uoscall_nowait("kubectl delete pods --all")
         uos1.uoscall_nowait("docker login -u pgmabv99 -p Lena8484")
 
-        uos1.uoscall_nowait("kubectl apply -f pydjango.yaml")
+        #replace pattern in Yaml
+        f = open("pydjango_ip.txt", "r")
+        ip=f.read()
+        f.close()
 
-        # uos1.uoscall_nowait("kubectl get deployments")
+        f = open("pydjango.yaml", "r")
+        txt=f.read()
+        f.close()
+
+        txt2=txt.replace("__zz__ip",ip)
+        txt2=txt2.replace("__zz__replicas",str(replicas))
+        f1 = open("pydjango_tmp.yaml", "w")
+        f1.write(txt2)
+        f1.close()
+
+
+        uos1.uoscall_nowait("kubectl apply -f pydjango_tmp.yaml")
+
         # uos1.uoscall_nowait("kubectl get pods -o json -l app=pydjango")
-        resp=uos1.uoscall("kubectl get service pydjango -o json")
-        if resp[uos.RC] !=0 :
-            utz.print("exiting")
-            return
-        respj=json.loads(resp[uos.BUFOUT])
-        utz.jprint(respj)
-        # ip=respj["publicIp"]["ipAddress"]
-        # utz.print(ip)
+        # uos1.uoscall_nowait("kubectl logs -l app=pydjango ")
+        # uos1.uoscall_nowait("kubectl cluster-info dump > junk_dump.txt ")
+        # loop untill status shows IP
+
+        #wait for deployment replica to be filled
+        while True:
+            resp=uos1.uoscall("kubectl get pods -o json")
+            if resp[uos.RC] !=0 :
+                utz.print("exiting")
+                return
+            respj=json.loads(resp[uos.BUFOUT])
+            # utz.jprint(respj)
+            items=respj["items"]
+            for item in items:
+                utz.print(item["metadata"]["name"],item["status"]["phase"])
+
+            utz.sleep(3, "wait for next state")
+
+        return 
+
+        #wait for deployment replica to be filled
+        while True:
+            resp=uos1.uoscall("kubectl get deployment pydjango -o json")
+            if resp[uos.RC] !=0 :
+                utz.print("exiting")
+                return
+            respj=json.loads(resp[uos.BUFOUT])
+            utz.jprint(respj)
+            st=respj["status"]
+            if "availableReplicas" in st:
+                utz.print("replicas ", st["availableReplicas"])
+                if replicas == st["availableReplicas"]:
+                    break
+            utz.sleep(3, "wait for next state")
+
+        # wait for service to have ip
+        while True:
+            resp=uos1.uoscall("kubectl get service pydjango -o json")
+            if resp[uos.RC] !=0 :
+                utz.print("exiting")
+                return
+            respj=json.loads(resp[uos.BUFOUT])
+            # utz.jprint(respj)
+            lb=respj["status"]["loadBalancer"]
+            if "ingress" in lb:
+                ip=lb["ingress"][0]["ip"]
+                utz.print("ip",ip)
+                break
+            utz.sleep(5, "wait for next state")
+
 
 
 
@@ -181,7 +245,7 @@ azinit1=azinit()
 # azinit1.aks_build()
 # azinit1.sqlsrv_build()
 # azinit1.docker_build()
-# azinit1.k8s_build()
+azinit1.k8s_build()
 
 
 

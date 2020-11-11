@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pydjango
 spec:
-  replicas: 2
+  replicas: __zz__replicas
   selector:
     matchLabels:
       app: pydjango
@@ -41,7 +41,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: pgmabv88
   name: pydjango
 spec:
-  loadBalancerIP:  52.179.216.231
+  loadBalancerIP:  __zz__ip
   type: LoadBalancer
   ports:
   - port: 8000
