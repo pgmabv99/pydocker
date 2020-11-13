@@ -161,10 +161,10 @@ class azinit:
     def k8s_build(self):
         utz.enter()
         uos1=uos()
-        replicas=6
-
+        replicas=4
 
         # uos1.uoscall_nowait("kubectl delete pods --all")
+
         uos1.uoscall_nowait("kubectl delete services --all")
         uos1.uoscall_nowait("kubectl delete deployments  --all")
         uos1.uoscall_nowait("docker login -u pgmabv99 -p Lena8484")
@@ -199,12 +199,24 @@ class azinit:
                 utz.print("exiting")
                 return
             respj=json.loads(resp[uos.BUFOUT])
-            # utz.jprint(respj)
             items=respj["items"]
+            nbad=0
             for item in items:
-                utz.print(item["metadata"]["name"],item["status"]["phase"])
-
-            utz.sleep(3, "wait for next state")
+                phase=item["status"]["phase"]
+                msg=""
+                if phase!="Running":
+                    nbad+=1
+                    if "conditions" in item["status"]:
+                        msglist=item["status"]["conditions"] 
+                        for msg2 in msglist:
+                            msg+=msg2.get("message","")+"\n"
+                    else:
+                        msg+="waiting for conditions in json"
+                    utz.print(item["metadata"]["name"],item["status"]["phase"],msg)
+            if nbad==0:
+                utz.print("all {replicas} replicas are running".format(replicas=replicas))
+                break
+            utz.sleep(3, "Not running {nbad} .wait for next state".format(nbad=nbad))
 
         return 
 
