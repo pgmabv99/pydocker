@@ -9,6 +9,16 @@
             "env": {
                 "PYTHONPATH": "${workspaceFolder:pyutil}"
             },
+        },
+        {
+            "name": "Python: azdel",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder:pydocker}/azdel.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder:pyutil}"
+            },
         }
     ]
 }

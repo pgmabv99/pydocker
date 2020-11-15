@@ -218,22 +218,21 @@ class azinit:
                 break
             utz.sleep(3, "Not running {nbad} .wait for next state".format(nbad=nbad))
 
-        return 
 
         #wait for deployment replica to be filled
-        while True:
-            resp=uos1.uoscall("kubectl get deployment pydjango -o json")
-            if resp[uos.RC] !=0 :
-                utz.print("exiting")
-                return
-            respj=json.loads(resp[uos.BUFOUT])
-            utz.jprint(respj)
-            st=respj["status"]
-            if "availableReplicas" in st:
-                utz.print("replicas ", st["availableReplicas"])
-                if replicas == st["availableReplicas"]:
-                    break
-            utz.sleep(3, "wait for next state")
+        # while True:
+        #     resp=uos1.uoscall("kubectl get deployment pydjango -o json")
+        #     if resp[uos.RC] !=0 
+        #         utz.print("exiting")
+        #         return
+        #     respj=json.loads(resp[uos.BUFOUT])
+        #     utz.jprint(respj)
+        #     st=respj["status"]
+        #     if "availableReplicas" in st:
+        #         utz.print("replicas ", st["availableReplicas"])
+        #         if replicas == st["availableReplicas"]:
+        #             break
+        #     utz.sleep(3, "wait for next state")
 
         # wait for service to have ip
         while True:
@@ -250,6 +249,24 @@ class azinit:
                 break
             utz.sleep(5, "wait for next state")
 
+    def k8s_logs(self):
+        utz.enter()
+        uos1=uos()
+        uos1.uoscall_nowait("rm -r logs")
+        uos1.uoscall_nowait("mkdir logs")
+        resp=uos1.uoscall("kubectl get pods -o json")
+        if resp[uos.RC] !=0 :
+            utz.print("exiting")
+            return
+        respj=json.loads(resp[uos.BUFOUT])
+        items=respj["items"]
+        for item in items:
+            pod=item["metadata"]["name"]
+            print("============================================")
+            resp=uos1.uoscall("kubectl logs  {pod}".format(pod=pod), file_name="logs/"+pod+".txt")
+
+    
+   
 
 
 
@@ -257,7 +274,8 @@ azinit1=azinit()
 # azinit1.aks_build()
 # azinit1.sqlsrv_build()
 # azinit1.docker_build()
-azinit1.k8s_build()
+# azinit1.k8s_build()
+azinit1.k8s_logs()
 
 
 
