@@ -161,7 +161,7 @@ class azinit:
     def k8s_build(self):
         utz.enter()
         uos1=uos()
-        replicas=4
+        replicas=10
 
         # uos1.uoscall_nowait("kubectl delete pods --all")
 
@@ -262,8 +262,12 @@ class azinit:
         items=respj["items"]
         for item in items:
             pod=item["metadata"]["name"]
-            print("============================================")
-            resp=uos1.uoscall("kubectl logs  {pod}".format(pod=pod), file_name="logs/"+pod+".txt")
+            with  open("logs/"+pod+"_stat.txt","w") as f:
+                f.write(utz.jstring(item["status"]))
+            resp=uos1.uoscall("kubectl describe pod  {pod}".format(pod=pod), \
+                    file_name="logs/"+pod+"_describe.txt")
+            resp=uos1.uoscall("kubectl logs  {pod}".format(pod=pod), \
+                    file_name="logs/"+pod+"_log.txt")
 
     
    
@@ -274,7 +278,7 @@ azinit1=azinit()
 # azinit1.aks_build()
 # azinit1.sqlsrv_build()
 # azinit1.docker_build()
-# azinit1.k8s_build()
+azinit1.k8s_build()
 azinit1.k8s_logs()
 
 
