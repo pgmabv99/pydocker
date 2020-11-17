@@ -1,0 +1,17 @@
+2020-11-17 04:14:42.430440 hhhhhhhhhhhhhhhhhhhh
+2020-11-17 04:14:42.433386 azinit  :__init__
+2020-11-17 04:14:42.433506 azinit  :k8s_logs
+2020-11-17 04:14:42.433545 init uos
+2020-11-17 04:14:42.433668 uos     :uoscall_nowait
+2020-11-17 04:14:42.433701 rm -r logs
+2020-11-17 04:14:42.436024 uos     :uoscall_nowait
+2020-11-17 04:14:42.436114 mkdir logs
+2020-11-17 04:14:42.440127 kubectl get pods -o json
+2020-11-17 04:14:42.529419 kubectl describe pod  pydjango-85cb476964-d47tk
+2020-11-17 04:14:42.643855 kubectl logs  pydjango-85cb476964-d47tk
+2020-11-17 04:14:42.763380 kubectl describe pod  pydjango-85cb476964-gqq4g
+2020-11-17 04:14:42.865329 kubectl logs  pydjango-85cb476964-gqq4g
+2020-11-17 04:14:42.975881 kubectl describe pod  pydjango-85cb476964-wxb5w
+2020-11-17 04:14:43.073548 kubectl logs  pydjango-85cb476964-wxb5w
+2020-11-17 04:14:43.171314 kubectl describe pod  pydjango-85cb476964-zvp7g
+2020-11-17 04:14:43.283178 kubectl logs  pydjango-85cb476964-zvp7g

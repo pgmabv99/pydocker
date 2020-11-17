@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pydjango
 spec:
-  replicas: __zz__replicas
+  replicas: {replicas}
   selector:
     matchLabels:
       app: pydjango
@@ -41,8 +41,9 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-resource-group: pgmabv88
   name: pydjango
 spec:
-  loadBalancerIP:  __zz__ip
+  loadBalancerIP:  {ip}
   type: LoadBalancer
+  sessionAffinity: None
   ports:
   - port: 8000
   selector:
@@ -92,3 +93,4 @@ spec:
 #   - port: 80
 #   selector:
 #     app: azure-vote-front
+# sessionAffinity: ClientIP

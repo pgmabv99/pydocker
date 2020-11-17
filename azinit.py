@@ -8,9 +8,12 @@ from utz import utz,ddict,uos
 
 class azinit:
     def __init__(self):
-        utz.enter()
+        utz.logset()
+        utz.print("hhhhhhhhhhhhhhhhhhhh")
+        utz.enter2()
+
     def sqlsrv_build(self):
-        utz.enter()
+        utz.enter2()
         uos1=uos()
 
         grp="pgmabv88"
@@ -53,7 +56,7 @@ class azinit:
 
 
     def aks_build(self):
-        utz.enter()
+        utz.enter2()
         uos1=uos()
 
         grp="pgmabv88"
@@ -64,10 +67,21 @@ class azinit:
         cmd="az aks delete   --name {cls} --resource-group {grp} --yes"\
                             .format(cls=cls,grp=grp)
         resp=uos1.uoscall(cmd)
-            
+         
         cmd="az aks create   --name {cls} --resource-group {grp} \
                             --ssh-key-value /home/azureuser/.ssh/authorized_keys \
                             --node-count 1"\
+                            .format(cls=cls,grp=grp)
+        resp=uos1.uoscall(cmd)
+        if resp[uos.RC] !=0 :
+            utz.print("exiting")
+            return
+        respj=json.loads(resp[uos.BUFOUT])
+        utz.jprint(respj)
+        clientid=respj["servicePrincipalProfile"]["clientId"]
+
+        #enable monitoring 
+        cmd="az aks enable-addons -a monitoring  --name {cls} --resource-group {grp}"\
                             .format(cls=cls,grp=grp)
         resp=uos1.uoscall(cmd)
         if resp[uos.RC] !=0 :
@@ -89,6 +103,7 @@ class azinit:
         respj=json.loads(resp[uos.BUFOUT])
         utz.jprint(respj)
 
+        #allow external IP for k8s service
         cmd="az aks get-credentials --resource-group {grp} --name {cls} \
                                     --overwrite-existing"\
                             .format(cls=cls,grp=grp)
@@ -98,14 +113,12 @@ class azinit:
             return
         utz.print(resp[uos.BUFOUT])
 
-
+        #recreate public IP and save in the file
         cmd="az network public-ip delete \
             --resource-group {grp}\
             --name {ipname}"\
                             .format(ipname=ipname,grp=grp)
         resp=uos1.uoscall(cmd)
-
-
         cmd="az network public-ip create \
             --resource-group {grp}\
             --name {ipname} \
@@ -124,11 +137,11 @@ class azinit:
         f = open("pydjango_ip.txt", "w")
         f.write(ip)
         f.close()
-
         #https://docs.microsoft.com/en-us/azure/aks/static-ip
 
+   
     def docker_build(self):
-        utz.enter()
+        utz.enter2()
         uos1=uos()
 
         img="pgmabv99/pydjango"
@@ -159,9 +172,10 @@ class azinit:
         resp=uos1.uoscall_nowait(cmd)
 
     def k8s_build(self):
-        utz.enter()
+        utz.enter2()
         uos1=uos()
-        replicas=10
+        replicas=4
+        grp="pgmabv88"
 
         # uos1.uoscall_nowait("kubectl delete pods --all")
 
@@ -178,8 +192,7 @@ class azinit:
         txt=f.read()
         f.close()
 
-        txt2=txt.replace("__zz__ip",ip)
-        txt2=txt2.replace("__zz__replicas",str(replicas))
+        txt2=txt.format(replicas=replicas,ip=ip,grp=grp)
         f1 = open("pydjango_tmp.yaml", "w")
         f1.write(txt2)
         f1.close()
@@ -250,7 +263,7 @@ class azinit:
             utz.sleep(5, "wait for next state")
 
     def k8s_logs(self):
-        utz.enter()
+        utz.enter2()
         uos1=uos()
         uos1.uoscall_nowait("rm -r logs")
         uos1.uoscall_nowait("mkdir logs")
@@ -278,11 +291,11 @@ azinit1=azinit()
 # azinit1.aks_build()
 # azinit1.sqlsrv_build()
 # azinit1.docker_build()
-azinit1.k8s_build()
+# azinit1.k8s_build()
 azinit1.k8s_logs()
 
 
-
+# 
 
 
 

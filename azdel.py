@@ -5,7 +5,11 @@ grp="pgmabv88"
 srv="pgmabv88"
 cls="pgmabv88"
 
+utz.logset()
 uos1=uos()
+
+utz.print("start deletion",99)
+
 cmd="az sql server delete   -g {grp} -n {srv}   --yes ".format(grp=grp,srv=srv)
 resp=uos1.uoscall(cmd)
 
