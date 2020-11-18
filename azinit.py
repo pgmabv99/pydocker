@@ -174,7 +174,7 @@ class azinit:
     def k8s_build(self):
         utz.enter2()
         uos1=uos()
-        replicas=4
+        replicas=2
         grp="pgmabv88"
 
         # uos1.uoscall_nowait("kubectl delete pods --all")
