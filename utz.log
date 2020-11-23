@@ -1,17 +1,98 @@
-2020-11-17 21:43:52.431338 hhhhhhhhhhhhhhhhhhhh
-2020-11-17 21:43:52.434060 azinit  :__init__
-2020-11-17 21:43:52.434203 azinit  :k8s_logs
-2020-11-17 21:43:52.434232 init uos
-2020-11-17 21:43:52.434381 uos     :uoscall_nowait
-2020-11-17 21:43:52.434437 rm -r logs
-2020-11-17 21:43:52.435713 rc 
+2020-11-22 22:27:06.805281 hhhhhhhhhhhhhhhhhhhh
+2020-11-22 22:27:06.844929 azinit  :__init__
+2020-11-22 22:27:06.846735 azinit  :sqlsrv_build
+2020-11-22 22:27:06.846841 init uos
+2020-11-22 22:27:06.846920 az sql server delete   -g pgmabv88 -n pgmabv88   --yes 
+2020-11-22 22:27:23.821375 rc 
  1
-2020-11-17 21:43:52.435751 err: 
- b"rm: cannot remove 'logs': No such file or directory\n"
-2020-11-17 21:43:52.435968 uos     :uoscall_nowait
-2020-11-17 21:43:52.435988 mkdir logs
-2020-11-17 21:43:52.437615 kubectl get pods -o json
-2020-11-17 21:43:52.546285 kubectl describe pod  pydjango-85cb476964-cqm49
-2020-11-17 21:43:52.652672 kubectl logs  pydjango-85cb476964-cqm49
-2020-11-17 21:43:52.892797 kubectl describe pod  pydjango-85cb476964-d8ht4
-2020-11-17 21:43:53.004837 kubectl logs  pydjango-85cb476964-d8ht4
+2020-11-22 22:27:23.821593 err: 
+ b'Deployment failed. Correlation ID: 3cc1c64e-1e01-446f-9ea5-26b7dd7b472a. Server is already being dropped. (Server Name: pgmabv88, Operation RequestId: d160cb43-4942-4328-9949-16789f7a6f63)\n'
+2020-11-22 22:27:23.821822 wait for delete to propagate 20
+2020-11-22 22:27:43.839838 az sql server create -l eastus2 -g pgmabv88 -n pgmabv88 -u srvadmin -p Mark8484 -e true 
+2020-11-22 22:31:35.806757 {
+ "administratorLogin": "srvadmin",
+ "administratorLoginPassword": null,
+ "fullyQualifiedDomainName": "pgmabv88.database.windows.net",
+ "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Sql/servers/pgmabv88",
+ "identity": null,
+ "kind": "v12.0",
+ "location": "eastus2",
+ "minimalTlsVersion": null,
+ "name": "pgmabv88",
+ "privateEndpointConnections": [],
+ "publicNetworkAccess": "Enabled",
+ "resourceGroup": "pgmabv88",
+ "state": "Ready",
+ "tags": null,
+ "type": "Microsoft.Sql/servers",
+ "version": "12.0"
+}
+2020-11-22 22:31:35.806862 az sql server firewall-rule create -g pgmabv88 -s pgmabv88  -n pgmabv88                     --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0 
+2020-11-22 22:32:27.729539 {
+ "endIpAddress": "0.0.0.0",
+ "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Sql/servers/pgmabv88/firewallRules/pgmabv88",
+ "kind": "v12.0",
+ "location": "East US 2",
+ "name": "pgmabv88",
+ "resourceGroup": "pgmabv88",
+ "startIpAddress": "0.0.0.0",
+ "type": "Microsoft.Sql/servers/firewallRules"
+}
+2020-11-22 22:32:27.729651 az sql db create -g pgmabv88 -s pgmabv88 -n db88  
+2020-11-22 22:33:14.823536 {
+ "autoPauseDelay": null,
+ "backupStorageRedundancy": "Geo",
+ "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
+ "collation": "SQL_Latin1_General_CP1_CI_AS",
+ "createMode": null,
+ "creationDate": "2020-11-22T22:33:03.433000+00:00",
+ "currentServiceObjectiveName": "S0",
+ "currentSku": {
+  "capacity": 10,
+  "family": null,
+  "name": "Standard",
+  "size": null,
+  "tier": "Standard"
+ },
+ "databaseId": "b9553c35-1475-4362-b2bc-9c31c9c311d2",
+ "defaultSecondaryLocation": "centralus",
+ "earliestRestoreDate": "2020-11-22T23:03:03.433000+00:00",
+ "edition": "Standard",
+ "elasticPoolId": null,
+ "elasticPoolName": null,
+ "failoverGroupId": null,
+ "id": "/subscriptions/cbff8ae6-7d79-4b2d-bf97-d9fc382bc181/resourceGroups/pgmabv88/providers/Microsoft.Sql/servers/pgmabv88/databases/db88",
+ "kind": "v12.0,user",
+ "licenseType": null,
+ "location": "eastus2",
+ "longTermRetentionBackupResourceId": null,
+ "managedBy": null,
+ "maxLogSizeBytes": null,
+ "maxSizeBytes": 268435456000,
+ "minCapacity": null,
+ "name": "db88",
+ "pausedDate": null,
+ "readReplicaCount": 0,
+ "readScale": "Disabled",
+ "recoverableDatabaseId": null,
+ "recoveryServicesRecoveryPointId": null,
+ "requestedServiceObjectiveName": "S0",
+ "resourceGroup": "pgmabv88",
+ "restorableDroppedDatabaseId": null,
+ "restorePointInTime": null,
+ "resumedDate": null,
+ "sampleName": null,
+ "sku": {
+  "capacity": 10,
+  "family": null,
+  "name": "Standard",
+  "size": null,
+  "tier": "Standard"
+ },
+ "sourceDatabaseDeletionDate": null,
+ "sourceDatabaseId": null,
+ "status": "Online",
+ "tags": null,
+ "type": "Microsoft.Sql/servers/databases",
+ "zoneRedundant": false
+}

@@ -289,10 +289,10 @@ class azinit:
 
 azinit1=azinit()
 # azinit1.aks_build()
-# azinit1.sqlsrv_build()
+azinit1.sqlsrv_build()
 # azinit1.docker_build()
 # azinit1.k8s_build()
-azinit1.k8s_logs()
+#azinit1.k8s_logs()
 
 
 # 
